@@ -1,18 +1,27 @@
-from flask import Flask, jsonify, redirect, request, render_template
+import yaml
 import pickle
 import numpy as np
-import yaml
-import json
-with open("config.yaml", "r") as stream:
-    file_paths = yaml.safe_load(stream)
+from flask import jsonify
+from flask import Flask, redirect, request, render_template
 app = Flask(__name__)
 
+with open("config.yaml", "r") as stream:
+    file_paths = yaml.safe_load(stream)
 
-def get_list_of_inputs(method):
-    if method == "POST":
-        data = request.form
-    else:
-        data = request.args
+
+def load_the_model(model_path):
+    return pickle.load(open(model_path, 'rb'))
+
+
+def get_prediction(input_list):
+    input_array = np.array(input_list, dtype=np.float32).reshape(1, 7)
+    model = load_the_model(file_paths['model_path'])
+    prediction = (model.predict(input_array)).tolist()
+    return jsonify(prediction=prediction)
+
+
+def get_inputs():
+    data = request.form
     nitrogen_content = data["n"]
     phosphorus_content = data["p"]
     potassium_content = data["k"]
@@ -29,24 +38,11 @@ def get_list_of_inputs(method):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
-        list_of_inputs = get_list_of_inputs(method="POST")
-        input_array = np.array(list_of_inputs, dtype=np.float32).reshape(1, 7)
-        model = pickle.load(open(file_paths['model_path'], 'rb'))
-        prediction = model.predict(input_array)
-        print(prediction)
-        return render_template('index.html', title='Home', prediction=prediction.tolist())
+        list_of_inputs = get_inputs()
+        response = get_prediction(list_of_inputs)
+        return render_template('index.html', title='Home', prediction=response.json['prediction'])
     else:
         return render_template('index.html', title='Home')
-
-
-@app.route('/getpredictions', methods=['GET'])
-def index_json():
-    if request.method == "GET":
-        list_of_inputs = get_list_of_inputs(method="GET")
-        input_array = np.array(list_of_inputs, dtype=np.float32).reshape(1, 7)
-        model = pickle.load(open(file_paths['model_path'], 'rb'))
-        prediction = model.predict(input_array)
-        return jsonify(prediction=prediction.tolist())
 
 
 @app.route('/dashboard')

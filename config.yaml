@@ -1,2 +1,5 @@
-model_path: "model/model.pkl"
+model_path: "model.pkl"
+
+dataset_path: "crop_data.csv"
+
 drop_down_list: ['Data Analysis', 'EDA', 'Cluster Analysis', 'Model', 'Feature Selection', 'Feature Extraction', 'Documentation']

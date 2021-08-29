@@ -1,111 +1,96 @@
 import yaml
-import matplotlib
 import pandas as pd
-import numpy as np
-import seaborn as sns
 import streamlit as st
-import matplotlib.pyplot as plt
-from visualiation import Visualization
-from modeling import Clustering, ClassificationModels
+
+from clustering import Clustering
+from data_info import DataInformation
+from visualization import Visualization
+from modeling import LRModel
+
 with open("config.yaml", "r") as stream:
     file_paths = yaml.safe_load(stream)
-matplotlib.use('Agg')
-st.title('Crop Production Optimization System')
 
-
-def check_data(df):
-    st.dataframe(df.head(12))
-
-    if st.checkbox("Display Shape"):
-        st.write(df.shape)
-
-    if st.checkbox("Check Null"):
-        null_value = df.isnull().sum().sum()
-        st.write("{null_value} null values found.".format(null_value=null_value))
-
-    if st.checkbox("Check Column"):
-        selected_column = st.multiselect('Select Desired Column', df.columns)
-        if selected_column:
-            st.dataframe(df[selected_column])
-
-    if st.checkbox("Check object data types"):
-        object_datas = df.select_dtypes('object')
-        if not object_datas.empty:
-            st.write(object_datas.head(3))
-        else:
-            st.write("No Object Data Found !")
-
-    if st.checkbox("Check for data imbalance"):
-        st.write(df['label'].value_counts())
-        sns.countplot(x='label', data=df)
-        st.pyplot(plt)
+st.set_option("deprecation.showPyplotGlobalUse", False)
+st.title("Crop Production Dashboard")
 
 
 def main():
-    data = st.file_uploader(label="", type=['csv', 'xlsx'])
+    data = st.file_uploader(label="", type=["csv", "xlsx"])
     if data is not None:
         df = pd.read_csv(data)
-        option = st.sidebar.selectbox('Select Option', file_paths['drop_down_list'])
+        option = st.sidebar.selectbox("Select Option", file_paths["drop_down_list"])
 
-        if option == 'Data Analysis':
+        data_info = DataInformation(df)
+        visuals = Visualization()
+        cluster = Clustering(data_info.get_data_excluding_label(), data_info.get_data_label())
+        lr_classification = LRModel(data_info.get_data_excluding_label(), data_info.get_data_label())
+
+        if option == "Data Analysis":
             st.subheader("Understanding the Data")
-            check_data(df)
+            if st.checkbox("Show Dataset"):
+                st.dataframe(data_info.get_dataset_head())
 
-        elif option == 'EDA':
+            if st.checkbox("Display Shape"):
+                st.write(data_info.get_shape())
+
+            if st.checkbox("Check Null"):
+                st.write(data_info.get_no_of_null())
+
+            if st.checkbox("Check Individual Column"):
+                selected_column = st.multiselect("Select Desired Column", df.columns)
+                if selected_column:
+                    st.dataframe(
+                        data_info.get_selected_column(selected_column)
+                    )
+
+            if st.checkbox("Check object data types"):
+                st.write(data_info.get_categorical_data_columns())
+
+            if st.checkbox("Check for data imbalance"):
+                st.write(data_info.check_data_imbalance())
+
+        elif option == "EDA":
             st.subheader("Exploratory Data Analysis")
 
-            if st.checkbox("Data statistics"):
-                dropdown_list = df.label.unique()
-                dropdown_list = np.insert(dropdown_list, 0, 'Overall')
-                selected_target = st.selectbox('Select Target', dropdown_list)
-                if selected_target == "Overall":
-                    st.write(df.describe())
-                else:
-                    st.write(df[df.label == selected_target].describe())
+            st.subheader("1. Data Exploration")
+            if st.checkbox("High Level Statistics"):
+                dropdown_list = data_info.get_unique_labels(with_overall=True)
+                selected_target = st.selectbox("Select Target", dropdown_list)
+                st.write(data_info.get_data_statistics(selected_target))
 
-            st.subheader("Visualizations")
-            visuals = Visualization()
+            st.subheader("2. Visualizations")
             if st.checkbox("Distribution Plot"):
-                selected_column = st.multiselect('Select the columns you want to visualize',
-                                                 df.columns)
+                selected_column = st.multiselect(
+                    "Select the columns you want to visualize", data_info.get_dataset_columns()
+                )
                 if selected_column:
-                    df = df[selected_column]
-                    st.dataframe(df)
-                fig = visuals.distribution_plot(df.drop(['label'], axis=1))
-                st.pyplot(fig)
+                    returned_data = data_info.get_selected_column(selected_column)
+                    st.dataframe(returned_data)
+                    visuals.plot_data_distribution(data_info.get_data_excluding_label(only_include=returned_data))
+                else:
+                    visuals.plot_data_distribution(data_info.get_data_excluding_label())
+                st.pyplot()
 
-            if st.checkbox("Visualize for Optimal Number of Cluster"):
-                fig = visuals.elbow_plot(df.drop(['label'], axis=1))
-                st.pyplot(fig)
+            if st.checkbox("Find Optimal Number of Cluster"):
+                visuals.plot_elbow_graph(data_info.get_data_excluding_label())
+                st.pyplot()
 
-        elif option == 'Cluster Analysis':
-            cluster = Clustering()
+        elif option == "Cluster Analysis":
             st.subheader("Clustering")
             if st.checkbox("K-means clustering"):
-                st.write("Hard Clustering List:")
-                df_clusters = cluster.showclusters(df, n_clusters=4)
+                df_clusters = cluster.show_clusters(n_clusters=4)
                 st.dataframe(df_clusters)
 
         elif option == "Model":
-            classification = ClassificationModels(df)
             st.subheader("Predictive Modeling")
             if st.checkbox("Logistic Regression"):
-                model = classification.logistic_regression()
-                fig, report = classification.evaluate_model_performance(model)
+                fig, report = lr_classification.evaluate_model_performance()
                 st.pyplot(fig)
                 st.write("Classification Report for Logistic Regression")
                 st.dataframe(report)
                 if st.button("Save this Model"):
-                    classification.save_the_model(model, file_paths['model_path'])
+                    lr_classification.save_the_model(file_paths["model_path"])
                     st.success("Model Saved Successfully")
-
-        # elif option == 'Feature Selection':
-        #     cluster = Clustering()
-        #     st.subheader("Clustering")
-        #     if st.checkbox("K-means clustering"):
-        #         st.write("Hard Clustering List:")
-        #         df_clusters = cluster.showclusters(df, n_clusters=4)
-        #         st.dataframe(df_clusters)
 
 
 if __name__ == "__main__":
