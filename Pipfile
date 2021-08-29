@@ -21,6 +21,7 @@ imblearn = "*"
 statsmodels = "*"
 boruta = "*"
 plotly = "*"
+flask-restful = "*"
 
 [dev-packages]
 

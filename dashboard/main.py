@@ -5,8 +5,8 @@ import numpy as np
 import seaborn as sns
 import streamlit as st
 import matplotlib.pyplot as plt
-from dashboard import Visualization
-from dashboard import Clustering, ClassificationModels
+from visualiation import Visualization
+from modeling import Clustering, ClassificationModels
 with open("config.yaml", "r") as stream:
     file_paths = yaml.safe_load(stream)
 matplotlib.use('Agg')
@@ -107,3 +107,6 @@ def main():
         #         df_clusters = cluster.showclusters(df, n_clusters=4)
         #         st.dataframe(df_clusters)
 
+
+if __name__ == "__main__":
+    main()

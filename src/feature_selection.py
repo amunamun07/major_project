@@ -12,7 +12,7 @@ class FeatureSelection:
         plt.rcParams['figure.figsize'] = (15, 10)
         plt.style.use('fivethirtyeight')
         corr = self.data.corr()
-        sns.heatmap(corr,annot=True, cmap='viridis', linewidth=0.2)
+        sns.heatmap(corr, annot=True, cmap='viridis', linewidth=0.2)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
         return plt
