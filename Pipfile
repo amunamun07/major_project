@@ -23,6 +23,7 @@ boruta = "*"
 plotly = "*"
 flask-restful = "*"
 pytest = "*"
+yellowbrick = "*"
 
 [dev-packages]
 

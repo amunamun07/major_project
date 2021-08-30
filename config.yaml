@@ -2,4 +2,6 @@ model_path: "model.pkl"
 
 dataset_path: "crop_data.csv"
 
-drop_down_list: ['Data Analysis', 'EDA', 'Cluster Analysis', 'Model', 'Feature Selection', 'Feature Extraction', 'Documentation']
+drop_down_list: ["Data Analysis", "EDA", "Cluster Analysis", "Model"]
+
+colors: ["r", "g", "b", "c"]

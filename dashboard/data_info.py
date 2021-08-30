@@ -24,10 +24,10 @@ class DataInformation:
         if only_include is not None:
             return only_include
         else:
-            return self.df.drop(['label'], axis=1)
+            return self.df.drop(["label"], axis=1)
 
     def get_no_of_null(self):
-        return f'{self.df.isnull().sum().sum()} null values found !'
+        return f"{self.df.isnull().sum().sum()} null values found !"
 
     def get_categorical_data_columns(self):
         object_data = self.df.select_dtypes("object")
@@ -53,5 +53,3 @@ class DataInformation:
             return np.insert(self.df.label.unique(), 0, "Overall")
         else:
             return self.df.label.unique()
-
-

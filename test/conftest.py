@@ -8,4 +8,4 @@ with open("config.yaml", "r") as stream:
 
 @pytest.fixture()
 def get_dataframe():
-    return pd.read_csv(file_paths['dataset_path'])
+    return pd.read_csv(file_paths["dataset_path"])
