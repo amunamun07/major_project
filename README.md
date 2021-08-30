@@ -1,11 +1,11 @@
 # Major Project 4: Insights and Prediction of Growing Suitable Crop
 
-Agriculture makes the people less dependent on foreign countries as it provides food and also provides income to the farmers and revenue to the government. Nepal Agriculture Research Pvt. Ltd. has initiated to help these farmers with suggestions about the best crop that can be grown in their land.
+Agriculture makes the people less dependent on foreign countries as it provides food and also provides income to the farmers and revenue to the government. This project aims on helping these farmers with suggestions about the best crop that can be grown in their land.
 
 The project objectives are:
-- From the given dataset, we need to analyze the different conditions where crops are grown.
-- We need to group the list of crops based on the similar condition that they grow in.
-- We also need to predict which crop can be grown with which given conditions.
+- We need to analyze the different conditions where crops are grown.
+- We need to group the crops based on the various similar or dissimilar conditions.
+- We also need to predict which crop can be grown with the given conditions.
 
 
 💫 **Version 1.0**
