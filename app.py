@@ -49,18 +49,18 @@ def get_prediction():
 def index():
     if request.method == "POST":
         dict_of_input = get_inputs()
-        url = "http://127.0.0.1:5000/predict"
+        url = file_paths['flask_url']+"/predict"
         response = requests.post(url, json=dict_of_input)
         return render_template(
-            "index.html", title="Home", prediction=response.json()["prediction"]
+            "index.html", prediction=response.json()["prediction"]
         )
     else:
-        return render_template("index.html", title="Home")
+        return render_template("index.html")
 
 
 @app.route("/dashboard")
 def dashboard():
-    return redirect("http://192.168.1.66:8501/")
+    return redirect(file_paths["streamlit_url"])
 
 
 if __name__ == "__main__":

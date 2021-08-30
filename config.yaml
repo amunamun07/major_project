@@ -5,3 +5,7 @@ dataset_path: "crop_data.csv"
 drop_down_list: ["Data Analysis", "EDA", "Cluster Analysis", "Model"]
 
 colors: ["r", "g", "b", "c"]
+
+flask_url: "http://127.0.0.1:5000"
+
+streamlit_url: "http://192.168.1.66:8501/"
