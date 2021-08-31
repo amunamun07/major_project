@@ -1,11 +1,13 @@
 # Major Project 4: Insights and Prediction of Growing Suitable Crop
 
-Agriculture makes the people less dependent on foreign countries as it provides food and also provides income to the farmers and revenue to the government. Nepal Agriculture Research Pvt. Ltd. has initiated to help these farmers with suggestions about the best crop that can be grown in their land.
+Agriculture makes the people less dependent on foreign countries as it provides food and also provides income to the farmers and revenue to the government. 
+This project is initiated to help these farmers with suggestions about the best crop that can be grown in their land.
 
 The project objectives are:
 - From the given dataset, we need to analyze the different conditions where crops are grown.
 - We need to group the list of crops based on the similar condition that they grow in.
 - We also need to predict which crop can be grown with which given conditions.
+- Creating a monitoring system that can monitor the often updating data to create a better model.
 
 
 💫 **Version 1.0**
@@ -37,7 +39,7 @@ The project objectives are:
 git clone git@github.com:amunamun07/major_project.git
 ```
 
-After you clone the project. You need to setup the environment.
+You need to set up the environment.
 
 - **Operating system**: macOS / OS X · Linux · Windows (Cygwin, MinGW, Visual
   Studio)
@@ -68,16 +70,16 @@ pipenv sync
 
 To download the dataset into the folder, use:
 ```bash
-weget https://drive.google.com/file/d/1WCpTGIJrHudvWEbRe09dDIAYKJo2GiHo/view?usp=sharing
+wget https://drive.google.com/file/d/1WCpTGIJrHudvWEbRe09dDIAYKJo2GiHo/view?usp=sharing crop_data.csv
 ```
 
 ### Getting the model
 
 To download the model for ease, use:
 ```bash
-weget https://drive.google.com/file/d/1q5wvhOCLYTSJxp6R8iRgsAfBnsNay44n/view?usp=sharing
+wget https://drive.google.com/file/d/1q5wvhOCLYTSJxp6R8iRgsAfBnsNay44n/view?usp=sharing model.plk
 ```
-
+(Alternatively): Copy those links and download them manually.
 
 ## ⚒ Run the project
 
@@ -89,10 +91,10 @@ Alternatively you can use two subprocesses and manage running both the servers.
 # Run the Streamlit Dashboard in the background
 streamlit run dashboard/main.py &
 
-# To run the Streamlit Dashboard not in the background
+# (Optional) -> run the Streamlit Dashboard only
 streamlit run dashboard/main.py
 
-# Now, run app.py
+# Run the Flask Server
 python app.py
 ```
 

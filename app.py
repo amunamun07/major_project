@@ -12,10 +12,30 @@ with open("config.yaml", "r") as stream:
 
 
 def load_the_model(model_path):
-    return pickle.load(open(model_path, "rb"))
+    """Loads and returns the model from the project directory.
+
+    Args:
+        model_path: Path of the model
+
+    Returns:
+        model. A linear_model loaded from the directory.
+
+    """
+    try:
+        return pickle.load(open(model_path, "rb"))
+    except pickle.UnpicklingError as e:
+        raise f"Unpickling Error: {e}"
+    except Exception as e:
+        raise e
 
 
-def get_inputs():
+def get_inputs() -> dict:
+    """Binds the input queries from the user  to a list followed by dictionary
+
+    Returns:
+        dict. A dictionary containing one key with list of inputs
+
+    """
     data = request.form
     nitrogen_content = data["n"]
     phosphorus_content = data["p"]
@@ -38,6 +58,7 @@ def get_inputs():
 
 @app.route("/predict", methods=["POST"])
 def get_prediction():
+    """predicts the output of the model and returns a json object"""
     list_of_inputs = request.json["list_of_inputs"]
     input_nparray = np.array(list_of_inputs, dtype=np.float32).reshape(1, 7)
     model = load_the_model(file_paths["model_path"])
@@ -47,19 +68,19 @@ def get_prediction():
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    """Renders the index page with or without predicted output"""
     if request.method == "POST":
         dict_of_input = get_inputs()
-        url = file_paths['flask_url']+"/predict"
+        url = file_paths["flask_url"] + "/predict"
         response = requests.post(url, json=dict_of_input)
-        return render_template(
-            "index.html", prediction=response.json()["prediction"]
-        )
+        return render_template("index.html", prediction=response.json()["prediction"])
     else:
         return render_template("index.html")
 
 
 @app.route("/dashboard")
 def dashboard():
+    """Redirects to the dashboard"""
     return redirect(file_paths["streamlit_url"])
 
 

@@ -16,6 +16,7 @@ st.title("Crop Production Dashboard")
 
 
 def display_user_interface():
+    """Creates a Streamlit interface structure and connects it to every other modules"""
     data = st.file_uploader(label="", type=["csv", "xlsx"])
     if data is not None:
         df = pd.read_csv(data)

@@ -6,6 +6,14 @@ from sklearn.metrics import silhouette_score
 
 class Clustering:
     def __init__(self, data, data_label, n_clusters=4):
+        """Load the Kmeans model and describes the Various Components of cluster.
+
+        Args:
+            data (dataframe): With the numerical columns except label
+            data_label (dataframe): With the label column
+            n_clusters (int): Number of clusters
+
+        """
         self.data = data
         self.data_label = data_label
         self.n_clusters = n_clusters
@@ -18,6 +26,12 @@ class Clustering:
         )
 
     def get_soft_clusters(self):
+        """Returns a soft cluster.
+
+        Returns:
+            df_including_cluster (dataframe): With label column and their respective cluster in cluster column
+
+        """
         model_output = self.model.fit_predict(self.data)
         model_output = pd.DataFrame(model_output)
         df_including_cluster = pd.concat([model_output, self.data_label], axis=1)
@@ -25,6 +39,12 @@ class Clustering:
         return df_including_cluster
 
     def get_hard_clusters(self):
+        """Returns a hard cluster.
+
+        Returns:
+                hard_clusters_df (dataframe): With label column and their respective cluster in cluster column
+
+        """
         df_including_cluster = self.get_soft_clusters()
         hard_clusters_list = []
         for i in range(self.n_clusters):
@@ -43,5 +63,11 @@ class Clustering:
         return hard_clusters_df
 
     def get_silhouette_score(self):
+        """Calculates the evaluation score of the cluster formed.
+
+        Returns:
+                score (float): silhouette score
+
+        """
         score = silhouette_score(self.data, self.model.labels_, metric="euclidean")
         return score

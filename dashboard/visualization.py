@@ -8,6 +8,12 @@ plt.style.use("seaborn")
 class Visualization:
     @staticmethod
     def plot_data_distribution(data):
+        """Visualization for the distribution of data.
+
+        Args:
+            data (dataframe): With all numerical columns
+
+        """
         fig, axes = plt.subplots(4, 2)
         axes = axes.ravel()
         for col, ax in zip(data.columns, axes):
@@ -16,6 +22,12 @@ class Visualization:
 
     @staticmethod
     def plot_elbow_graph(data):
+        """Visualization for the optimal number of clusters on a elbow plot.
+
+        Args:
+            data (dataframe): With all numerical columns
+
+        """
         plt.rcParams["figure.figsize"] = (10, 4)
         within_cluster_sum_of_squares = []
         for index in range(1, 11):
@@ -35,7 +47,15 @@ class Visualization:
 
     @staticmethod
     def plot_pca_scatter(principle_components, data_labels, targets, colors):
-        """Visualizing the principle components of images on 2D scatter plot."""
+        """Visualizing the principle components on 2D scatter plot.
+
+        Args:
+            principle_components (dataframe): Two columns as Principle component 1 and Principle component 2
+            data_labels (dataframe): Single column of data label
+            targets (list): A list of values that is to be plotted.
+            colors (list): A list of color initials
+
+        """
         plt.figure(figsize=(10, 8))
         plt.xticks(fontsize=10)
         plt.yticks(fontsize=10)
@@ -54,7 +74,15 @@ class Visualization:
 
     @staticmethod
     def plot_tsne_scatter(tsne_components, data_labels, targets, colors):
-        """Visualizing the tsne components of images on 2D scatter plot."""
+        """Visualizing the tsne components on 2D scatter plot.
+
+        Args:
+            tsne_components (dataframe): Two columns as tsne component 1 and tsne component 2
+            data_labels (dataframe): Single column of data label
+            targets (list): A list of values that is to be plotted.
+            colors (list): A list of color initials
+
+        """
         plt.figure(figsize=(10, 8))
         plt.xticks(fontsize=10)
         plt.yticks(fontsize=10)
@@ -73,6 +101,12 @@ class Visualization:
 
     @staticmethod
     def plot_correlation_heatmap(data):
+        """Visualizing the correlation on a Heatmap.
+
+        Args:
+            data (dataframe): With all numerical columns
+
+        """
         plt.rcParams["figure.figsize"] = (15, 12)
         plt.style.use("fivethirtyeight")
         corr = data.corr()

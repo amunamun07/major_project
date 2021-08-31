@@ -6,6 +6,15 @@ from sklearn.model_selection import train_test_split
 
 
 def split_data(data, data_label, test_size=0.25, random_state=0):
+    """Split the data into train and validation set.
+
+    Args:
+        data (dataframe): With the numerical columns except label
+        data_label (dataframe): With the label column
+        test_size (float): Ratio of test set to be split from the data
+        random_state (int): used to seed a new RandomState object.
+
+    """
     return train_test_split(
         data,
         data_label,
@@ -16,6 +25,13 @@ def split_data(data, data_label, test_size=0.25, random_state=0):
 
 class LRModel:
     def __init__(self, data, data_label):
+        """Fits a LR model to the data and returns classification report.
+
+        Args:
+            data (dataframe): With the numerical columns except label
+            data_label (dataframe): With the label column
+
+        """
         self.x_train, self.x_test, self.y_train, self.y_test = split_data(
             data, data_label
         )
@@ -23,14 +39,17 @@ class LRModel:
         self.model = model.fit(self.x_train, self.y_train)
 
     def get_report(self):
+        """Returns the classification report"""
         y_prediction = self.model.predict(self.x_test)
-        # plt.rcParams["figure.figsize"] = (10, 10)
-        # confuse_matrix = confusion_matrix(self.y_test, y_prediction)
-        # sns.heatmap(confuse_matrix, annot=True, cmap="Wistia")
-        # plt.title("Confusion Matrix for Logistic Regression")
         report = classification_report(self.y_test, y_prediction, output_dict=True)
         df_report = pd.DataFrame(report).transpose()
         return df_report
 
     def save_the_model(self, model_path):
+        """Saves the model.
+
+        Args:
+            model_path (str): Path of the model
+
+        """
         pickle.dump(self.model, open(model_path, "wb"))

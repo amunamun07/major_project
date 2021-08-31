@@ -5,6 +5,15 @@ from sklearn.preprocessing import StandardScaler
 
 
 def get_principle_components(data):
+    """Creates two principle components
+
+    Args:
+        data (dataframe): With the numerical columns except label
+
+    Returns:
+        principal_components_df (dataframe):  Two columns as Principle component 1 and Principle component 2
+
+    """
     scalar = StandardScaler().fit_transform(data)
     pca = PCA(n_components=2)
     principle_components = pca.fit_transform(scalar)
@@ -16,6 +25,15 @@ def get_principle_components(data):
 
 
 def get_tsne_components(data):
+    """Creates two tsne components
+
+    Args:
+        data (dataframe): With the numerical columns except label
+
+    Returns:
+        tsne_components_df (dataframe):  Two columns as tsne component 1 and tsne component 2
+
+    """
     tsne = TSNE(n_components=2, learning_rate=50)
     tsne_components = tsne.fit_transform(data)
     tsne_components_df = pd.DataFrame(
