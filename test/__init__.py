@@ -1,3 +1,6 @@
 from dashboard.visualization import Visualization
 from dashboard.data_info import DataInformation
-from dashboard.modeling import Clustering, ClassificationModels
+from dashboard.modeling import LRModel, split_data
+from dashboard.clustering import Clustering
+from dashboard.feature_extraction import get_principle_components
+from dashboard.feature_extraction import get_tsne_components

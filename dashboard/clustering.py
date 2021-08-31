@@ -69,5 +69,7 @@ class Clustering:
                 score (float): silhouette score
 
         """
-        score = silhouette_score(self.data, self.model.labels_, metric="euclidean")
+        score = silhouette_score(
+            self.data, self.model.fit(self.data).labels_, metric="euclidean"
+        )
         return score

@@ -6,3 +6,4 @@ test/__pycache__/
 dashboard/__pycache__/
 model.pkl
 crop_data.csv
+.pytest_cache/

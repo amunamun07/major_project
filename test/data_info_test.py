@@ -28,7 +28,6 @@ def test_get_data_statistics(get_dataframe):
         selected_target="Overall"
     )
     expected_statistics = get_dataframe.describe()
-    breakpoint()
     assert type(calculated_statistics) == type(expected_statistics), (
         "Selected target is the name of unique " "labels and also the overall data "
     )

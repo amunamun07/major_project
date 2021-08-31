@@ -1,4 +1,4 @@
-# Major Project 4: Insights and Prediction of Growing Suitable Crop
+# Major Project: Insights and Prediction of Growing Suitable Crop
 
 Agriculture makes the people less dependent on foreign countries as it provides food and also provides income to the farmers and revenue to the government. 
 This project is initiated to help these farmers with suggestions about the best crop that can be grown in their land.
@@ -16,8 +16,7 @@ The project objectives are:
 | Documentation              |                                                                |
 | -------------------------- | -------------------------------------------------------------- |
 | 📚 **[Project Details]**   | Document on Objective, System Workflow, Outputs and limitations| 
-| 📚 **[Project Slides]**   | Final Workflow and Demo Presentation                            |
-
+| 📚 **[Project Slides]**    | Final Workflow and Demo Presentation                           |
 
 [Project Details]: https://docs.google.com/document/d/16azcveBOR0jl3mDAY437wPh1UlI_ezPo6L5IIcT9SMM/edit?usp=sharing
 [Project Slides]: https://docs.google.com/presentation/d/1OHigyURp7DdXYgNisa0RaMyR0baNTVJPtHdw88X0MGQ/edit?usp=sharing
@@ -54,7 +53,7 @@ You need to set up the environment.
 ### pipenv
 
 Using pip, we can install the pipenv package manager, make sure that
-your `pip`, `setuptools` and `wheel` are up to date. If you already have 
+your `pip`, `setuptools` and `wheel` are up-to-date. If you already have 
 pipenv installed, you can skip the first command.
 
 ```bash
@@ -82,7 +81,7 @@ To download the model for ease, use:
 ```bash
 wget https://drive.google.com/file/d/1q5wvhOCLYTSJxp6R8iRgsAfBnsNay44n/view?usp=sharing model.plk
 ```
-(Alternatively): Copy those links and download them manually.
+(Alternatively): Copy and open these links and download them manually.
 
 ## ⚒ Run the project
 

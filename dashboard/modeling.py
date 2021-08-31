@@ -43,6 +43,7 @@ class LRModel:
         y_prediction = self.model.predict(self.x_test)
         report = classification_report(self.y_test, y_prediction, output_dict=True)
         df_report = pd.DataFrame(report).transpose()
+
         return df_report
 
     def save_the_model(self, model_path):
