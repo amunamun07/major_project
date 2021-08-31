@@ -15,8 +15,10 @@ The project objectives are:
 
 | Documentation              |                                                                |
 | -------------------------- | -------------------------------------------------------------- |
-| 📚 **[Project Details]**   | Document on Objective, System Workflow, Outputs and limitations                             | |
-| 📚 **[Project Slides]**   | Final Workflow and Demo Presentation 
+| 📚 **[Project Details]**   | Document on Objective, System Workflow, Outputs and limitations| 
+| 📚 **[Project Slides]**   | Final Workflow and Demo Presentation                            |
+
+
 [Project Details]: https://docs.google.com/document/d/16azcveBOR0jl3mDAY437wPh1UlI_ezPo6L5IIcT9SMM/edit?usp=sharing
 [Project Slides]: https://docs.google.com/presentation/d/1OHigyURp7DdXYgNisa0RaMyR0baNTVJPtHdw88X0MGQ/edit?usp=sharing
 
